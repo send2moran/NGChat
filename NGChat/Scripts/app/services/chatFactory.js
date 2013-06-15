@@ -12,6 +12,23 @@ angular
         // hub data for managing signalr
         hub = $.connection.chatHub;
 
+        function findConnectedUserIndex(userId) {
+            var index = -1;
+
+            angular.forEach(factory.connectedUsers, function (value, key) {
+                if (value.id == userId) {
+                    index = key;
+                    return false;
+                }
+            });
+
+            return index;
+        };
+
+        function connectedUserExists(userId) {
+            return findConnectedUserIndex(userId) != -1;
+        };
+
         // signalr hub dynamic functions
         hub.client.appendMessage = function (user, message) {
             factory.messages.push(factory.initChatMessageObject(
@@ -24,39 +41,43 @@ angular
                 $rootScope.$apply();
         };
 
-        hub.client.userConnected = function (username) {
-            // user id missing
-            factory.connectedUsers.push({ id: -1, name: username });
+        hub.client.userConnected = function (user) {
+            var newUser = {
+                id: user.Id,
+                name: user.Name
+            };
 
-            factory.messages.push(factory.initChatMessageObject(
-                null,
-                'Użytkownik ' + username + ' dołączył do czata.',
-                new Date(),
-                'global'));
+            if (!connectedUserExists(newUser.id)) {
+                factory.connectedUsers.push({ id: user.Id, name: user.Name });
 
-            if (!$rootScope.$root.$$phase)
-                $rootScope.$apply();
+                factory.messages.push(factory.initChatMessageObject(
+                    null,
+                    'Użytkownik ' + user.Name + ' dołączył do czata.',
+                    new Date(),
+                    'global'));
+
+                if (!$rootScope.$root.$$phase)
+                    $rootScope.$apply();
+            }
         };
 
-        hub.client.userDisconnected = function (username) {
-            var index = -1;
+        hub.client.userDisconnected = function (user) {
+            var disconnectedUser = {
+                id: user.Id,
+                name: user.Name
+            };
+            
+            var disconnectedUserIndex = findConnectedUserIndex(disconnectedUser.id);
 
-            factory.messages.push(factory.initChatMessageObject(
-                null,
-                'Użytkownik ' + username + ' wyszedł z czata.',
-                new Date(),
-                'global'));
+            if (disconnectedUserIndex != -1) {
+                factory.messages.push(factory.initChatMessageObject(
+                    null,
+                    'Użytkownik ' + user.Name + ' wyszedł z czata.',
+                    new Date(),
+                    'global'));
 
-            angular.forEach(factory.connectedUsers, function (value, key) {
-                if (value.name == username) {
-                    index = key;
-                    return false;
-                }
-            });
+                factory.connectedUsers.splice(disconnectedUserIndex, 1);
 
-            if (index > 0) {
-                factory.connectedUsers.splice(index, 1);
-                
                 if (!$rootScope.$root.$$phase)
                     $rootScope.$apply();
             }
@@ -106,8 +127,6 @@ angular
         };
 
         factory.getConnectedUsers = function () {
-            console.log('getConnectedUsers');
-
             return $http.get('/user/checkconnectedusers')
                 .success(function (data, status, headers, config) {
                     if (data && data.success) {
@@ -120,9 +139,6 @@ angular
                                 $rootScope.$apply();
                         }
                     }
-                })
-                .error(function (data, status, headers, config) {
-
                 });
         };
 

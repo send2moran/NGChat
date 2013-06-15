@@ -2,7 +2,7 @@
 
 angular
     .module('chat.directives')
-    .directive('chatNotifications', ['$window', '$document', function ($window, $document) {
+    .directive('chatNotifications', ['$window', 'userFactory', function ($window, userFactory) {
         return {
             replace: false,
             restrict: 'EA',
@@ -28,7 +28,10 @@ angular
                 scope.$watch(attrs.chatNotifications, function (newValue, oldValue) {
                     var lastMessage = newValue[newValue.length - 1];
 
-                    if (!isWindowActive() && lastMessage && lastMessage.cssClasses != 'global') {
+                    if (!isWindowActive() &&
+                        lastMessage &&
+                        lastMessage.cssClasses != 'global' &&
+                        lastMessage.user.id != userFactory.user.id) {
                         element.find('#newMessageSound')[0].play();
 
                         if (canShowNotify()) {

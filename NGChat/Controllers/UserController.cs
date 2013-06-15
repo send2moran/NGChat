@@ -117,10 +117,9 @@ namespace NGChat.Controllers
                 using (var chatContext = new ChatContext())
                 {
                     List<ChatUser> chatUsers = new List<ChatUser>();
-                    // pobiera userow z aktyanoscia nie starsza niz 5 minut
-                    // niestety sql server compact nie posiada funkcji EntityFunctions.AddMinutes ;/
-                    var users = chatContext.Users.Where(x => x.LastActivity >= EntityFunctions.AddMinutes(DateTime.Now, -5));
-                    //var users = chatContext.Users.Where(x => x.Name != User.Identity.Name);
+                    var users = chatContext.Users.Where(x => 
+                        x.LastActivity >= EntityFunctions.AddMinutes(DateTime.Now, -30) &&
+                        x.HubConnections.Count > 0);
 
                     foreach (var user in users)
                     {

@@ -1,12 +1,5 @@
 ﻿'use strict';
 
-// w niektorych miejscach jest uzyte $rootScope.$apply(); - ta metoda daje znac angularowi, 
-// ze niektore zmienne ulegly zmianie i dzieki temu $scope.$watch w kontrolerach dostaje powiadomienie,
-// ze dana zmienna sie zmienila
-// UWAGA - potrzebne jest to tylko w akcjach ktorych nie wywoluje uzytkownik, lecz gdy sie tego uzyje
-// w akcji wywolanej przez usera to angular wyrzuci wyjatek
-// Zachowanie $rootScope.$apply(); mozna tez otrzemac poprzez $timeout(function(){...some variable update...}, 0);
-
 angular
     .module('chat.services')
     .factory('userFactory', ['$http', '$rootScope', '$q', '$timeout', 'enumFactory', function ($http, $rootScope, $q, $timeout, enumFactory) {

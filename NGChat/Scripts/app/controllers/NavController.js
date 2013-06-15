@@ -28,12 +28,11 @@ angular
             }, true);
 
         $scope.logout = function () {
+            chatFactory.disconnect();
             userFactory.logout()
                 .success(function (data) {
-                    if (data && data.success) {
-                        chatFactory.disconnect();
+                    if (data && data.success)
                         $location.path('/');
-                    }
                 });
         };
     }]);

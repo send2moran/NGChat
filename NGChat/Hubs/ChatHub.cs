@@ -58,65 +58,71 @@ namespace NGChat.Hubs
 
             if (chatUser != null)
                 Clients.All.appendMessage(chatUser, message);
-
-            //Clients.Others.addNewMessageToPage(name, message);
         }
 
         public override Task OnConnected()
         {
-            string userName = Context.User.Identity.Name;
-            string connectionId = Context.ConnectionId;
+            if (Context.User != null && Context.User.Identity.IsAuthenticated)
+            {
+                using (var chatContext = new ChatContext())
+                {
+                    User user = chatContext.Users.FirstOrDefault(x => x.Name == Context.User.Identity.Name);
 
-            //var user = Users.GetOrAdd(userName, _ => new HubUser
-            //{
-            //    Name = userName,
-            //    ConnectionIds = new List<string>()
-            //});
+                    if (user != null)
+                    {
+                        user.LastActivity = DateTime.Now;
+                        user.HubConnections.Add(new HubConnection()
+                            {
+                                ConnectionId = Context.ConnectionId
+                            });
+                        chatContext.Entry(user).State = EntityState.Modified;
+                        chatContext.SaveChanges();
 
-            //lock (user.ConnectionIds)
-            //{
-            //    user.ConnectionIds.Add(connectionId);
+                        ChatUser chatUser = new ChatUser()
+                        {
+                            Id = user.Id,
+                            Name = WebUtility.HtmlEncode(user.Name)
+                        };
 
-            //    // TODO: Broadcast the connected user
-            //    Clients.AllExcept(user.ConnectionIds.ToArray()).userConnected(userName);
-            //}
-
-            Clients.Others.userConnected(WebUtility.HtmlEncode(userName));
+                        string[] userExistingConnections = user.HubConnections.Select(x => x.ConnectionId).ToArray();
+                        Clients.AllExcept(userExistingConnections).userConnected(chatUser);
+                    }
+                }
+            }
 
             return base.OnConnected();
         }
 
-        // dorobic disconnect po stronie klienta jak ktos kliknie logout
         public override Task OnDisconnected()
         {
-            string userName = Context.User.Identity.Name;
-            string connectionId = Context.ConnectionId;
+            if (Context.User != null && Context.User.Identity.IsAuthenticated)
+            {
+                using (var chatContext = new ChatContext())
+                {
+                    User user = chatContext.Users.FirstOrDefault(x => x.Name == Context.User.Identity.Name);
 
-            //HubUser user;
-            //Users.TryGetValue(userName, out user);
+                    if (user != null)
+                    {
+                        user.LastActivity = DateTime.Now;
+                        var connection = user.HubConnections.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
 
-            //if (user != null)
-            //{
+                        if (connection != null)
+                            chatContext.Entry(connection).State = EntityState.Deleted;
 
-            //    lock (user.ConnectionIds)
-            //    {
-            //        user.ConnectionIds.RemoveAll(cid => cid.Equals(connectionId));
+                        chatContext.Entry(user).State = EntityState.Modified;
+                        chatContext.SaveChanges();
 
-            //        if (!user.ConnectionIds.Any())
-            //        {
+                        ChatUser chatUser = new ChatUser()
+                        {
+                            Id = user.Id,
+                            Name = WebUtility.HtmlEncode(user.Name)
+                        };
 
-            //            HubUser removedUser;
-            //            Users.TryRemove(userName, out removedUser);
-
-            //            // You might want to only broadcast this info if this 
-            //            // is the last connection of the user and the user actual is 
-            //            // now disconnected from all connections.
-            //            Clients.Others.userDisconnected(userName);
-            //        }
-            //    }
-            //}
-
-            Clients.Others.userDisconnected(WebUtility.HtmlEncode(userName));
+                        string[] userExistingConnections = user.HubConnections.Select(x => x.ConnectionId).ToArray();
+                        Clients.AllExcept(userExistingConnections).userDisconnected(chatUser);
+                    }
+                }
+            }
 
             return base.OnDisconnected();
         }
