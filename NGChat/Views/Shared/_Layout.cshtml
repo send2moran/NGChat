@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html data-ng-app="chat">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="fragment" content="!" />
+    <title>@ViewBag.Title</title>
+
+    @Styles.Render("~/bundles/styles")
+    @Scripts.Render("~/bundles/scripts/libs")
+    <script src="@Url.Content("~/signalr/hubs")"></script>
+    @Scripts.Render("~/bundles/scripts/app")
+    
+</head>
+<body>
+    <div class="container">
+        <div class="header navbar navbar-inverse navbar-fixed-top" data-ng-controller="NavController">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <div class="brand">Simple chat</div>
+                    <div class="btn-group pull-right" data-ng-show="rightDropdown.show">
+                        <button class="btn"><i class="icon-user"></i>{{ rightDropdown.username }}</button>
+                        <button class="btn dropdown-toggle">
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                              <a data-ng-click="logout()">Wyloguj</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mainSection row-fluid">
+            @RenderBody()
+        </div>
+
+        <hr>
+
+        <footer>
+            <p>&copy; SimpleChat 2013</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>

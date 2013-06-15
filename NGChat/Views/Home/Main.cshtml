@@ -1,0 +1,38 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="main">
+    <div class="span8">
+        <div data-chat-notifications="chat.messages" data-connected-users="chat.connectedUsers"></div>
+        <div data-notify-chat-connection="chat.connectionState"></div>
+        <div data-tabs="">
+            <div data-pane="" data-heading="Główny">
+                <ul class="well chatWindow" data-scroll-on-refresh="chat.messages">
+                    <li data-ng-repeat="message in chat.messages" data-ng-class="message.cssClasses">
+                        <div class="userName" >{{ message.user.name }} -</div>
+                        <div class="date">{{ message.date | date:'d MMM HH:mm' }}</div>
+                        <div class="message" data-ng-bind-html="message.message"></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <form class="sendMessageForm">
+                <textarea 
+                    data-ng-model="chat.newMessage" 
+                    data-submit-textarea="sendMessage()" 
+                    class="pull-left" 
+                    placeholder="Napisz wiadomość" ></textarea>
+                <button type="button" class="btn btn-inverse pull-left" data-ng-click="sendMessage()">Wyślij</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="span4">
+        <h4>Użytkownicy</h4>
+        <ul class="users unstyled">
+            <li data-ng-repeat="user in chat.connectedUsers"><i class="icon-user"></i>{{ user.name }}</li>
+        </ul>
+    </div>
+</div>

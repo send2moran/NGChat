@@ -1,0 +1,396 @@
+﻿body {
+    padding-top: 20px;
+    padding-bottom: 60px;
+}
+
+.container {
+    margin: 0 auto;
+    max-width: 1000px;
+}
+
+    .container > hr {
+        margin: 30px 0;
+    }
+
+.chatWindow {
+    margin: 0;
+    height: 317px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-left: 0;
+}
+
+    .chatWindow li {
+        display: block;
+        list-style: none;
+        overflow: hidden;
+        color: #555555;
+        padding: 5px 0 5px 19px;
+        border-bottom: 1px solid #eaeaea;
+        margin-bottom: 6px;
+    }
+
+        .chatWindow li.author {
+            -webkit-box-shadow: inset 40px 0px 40px -40px #0088cc;
+            box-shadow: inset 40px 0px 40px -40px #0088cc;
+            border-bottom: 1px solid #93c8e7;
+        }
+
+        .chatWindow li .date,
+        .chatWindow li .userName {
+            float: left;
+            line-height: 14px;
+            font-size: 11px;
+        }
+
+        .chatWindow li .date {
+        }
+
+        .chatWindow li .userName {
+            font-weight: bold;
+            padding-right: 3px;
+            color: #000;
+        }
+
+        .chatWindow li .message {
+            clear: left;
+            line-height: 16px;
+            font-size: 13px;
+            padding: 3px 0;
+        }
+
+        .chatWindow li.global {
+            -webkit-box-shadow: inset 40px 0px 40px -40px #ed8c05;
+            box-shadow: inset 40px 0px 40px -40px #ed8c05;
+            border-bottom: 1px solid #ed8c05;
+            font-weight: bold;
+            color: #ed8c05;
+        }
+
+            .chatWindow li.global .date {
+                line-height: 16px;
+            }
+
+            .chatWindow li.global .userName {
+                display: none;
+            }
+
+            .chatWindow li.global .message {
+                clear: none;
+                float: left;
+                font-size: 11px;
+                padding: 0;
+                margin-left: 10px;
+                width: 510px;
+                overflow: hidden;
+            }
+
+.sendMessageForm {
+    margin: 20px 0 0 0;
+    padding: 0;
+    display: block;
+    overflow: hidden;
+}
+
+    .sendMessageForm textarea {
+        width: 572px;
+        height: 60px;
+        resize: vertical;
+    }
+
+    .sendMessageForm button {
+        margin-left: 10px;
+    }
+
+.logIn {
+}
+
+    .logIn .form-signin {
+        max-width: 400px;
+        padding: 19px 29px 29px;
+        margin: 0 auto 20px;
+        background-color: #fff;
+        border: 1px solid #e5e5e5;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+        -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+        box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    }
+
+        .logIn .form-signin .form-signin-heading,
+        .logIn .form-signin .checkbox {
+            margin-bottom: 10px;
+        }
+
+        .logIn .form-signin input[type="text"],
+        .logIn .form-signin input[type="password"] {
+            font-size: 16px;
+            height: auto;
+            margin-bottom: 15px;
+            padding: 7px 9px;
+        }
+
+.chatConnectionNotify {
+    display: none;
+}
+
+.header .container-fluid {
+    width: 1000px;
+    margin: 0 auto;
+}
+.header .container-fluid .dropdown-menu li a {
+    cursor: pointer;
+}
+.header .brand {
+    line-height: 49px;
+    padding-top: 0;
+    padding-bottom: 0;
+    font-weight: bold;
+    color: #e5e5e5;
+    -webkit-text-shadow: 0 1px 0 rgba(255,255,255,.1), 0 0 30px rgba(255,255,255,.125);
+    text-shadow: 0 1px 0 rgba(255,255,255,.1), 0 0 30px rgba(255,255,255,.125);
+    -webkit-transition: all .2s linear;
+    -moz-transition: all .2s linear;
+    -o-transition: all .2s linear;
+    transition: all .2s linear;
+}
+.header .brand:hover {
+    cursor: default;
+    color: #000;
+}
+.header .btn-group {
+    margin-top: 9px;
+}
+.header .btn .icon-user {
+    padding-right: 8px;
+}
+
+.mainSection {
+    margin-top: 40px;
+}
+
+.users {
+    padding-left: 10px;
+}
+.users li .icon-user {
+    padding-right: 5px;
+}
+
+/* Emoticons */
+.emote {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    padding: 0 2px;
+}
+.emote.grin {
+    background: url('../images/emoticons/grin.png') no-repeat;
+}
+.emote.blink {
+    background: url('../images/emoticons/blink.png') no-repeat;
+}
+.emote.angry {
+    background: url('../images/emoticons/angry.png') no-repeat;
+}
+.emote.angry2 {
+    background: url('../images/emoticons/angry2.png') no-repeat;
+}
+.emote.angry3 {
+    background: url('../images/emoticons/angry3.png') no-repeat;
+}
+.emote.ass {
+    background: url('../images/emoticons/ass.png') no-repeat;
+}
+.emote.beg {
+    background: url('../images/emoticons/beg.png') no-repeat;
+}
+.emote.ble {
+    background: url('../images/emoticons/ble.png') no-repeat;
+    width: 23px;
+}
+.emote.boxing {
+    background: url('../images/emoticons/boxing.png') no-repeat;
+    width: 22px;
+    height: 19px;
+}
+.emote.bye {
+    background: url('../images/emoticons/bye.png') no-repeat;
+    width: 20px;
+}
+.emote.bye2 {
+    background: url('../images/emoticons/bye2.png') no-repeat;
+    width: 20px;
+}
+.emote.chill-out {
+    background: url('../images/emoticons/chill_out.png') no-repeat;
+    width: 25px;
+}
+.emote.coffee {
+    background: url('../images/emoticons/coffe.png') no-repeat;
+    width: 17px;
+}
+.emote.comforting {
+    background: url('../images/emoticons/comforting.png') no-repeat;
+    width: 27px;
+}
+.emote.cool {
+    background: url('../images/emoticons/cool.png') no-repeat;
+}
+.emote.cool2 {
+    background: url('../images/emoticons/cool2.png') no-repeat;
+}
+.emote.cool3 {
+    background: url('../images/emoticons/cool3.png') no-repeat;
+}
+.emote.cool4 {
+    background: url('../images/emoticons/cool4.png') no-repeat;
+    width: 29px;
+}
+.emote.crafty {
+    background: url('../images/emoticons/crafty.png') no-repeat;
+    width: 15px;
+}
+.emote.craze {
+    background: url('../images/emoticons/craze.png') no-repeat;
+}
+.emote.cry {
+    background: url('../images/emoticons/cry.png') no-repeat;
+}
+.emote.disbeliever {
+    background: url('../images/emoticons/disbeliever.png') no-repeat;
+    width: 23px;
+}
+.emote.elo {
+    background: url('../images/emoticons/elo.png') no-repeat;
+    width: 39px;
+    height: 23px;
+}
+.emote.fuck-off {
+    background: url('../images/emoticons/fuck_off.png') no-repeat;
+    width: 25px;
+}
+.emote.fuck-off2 {
+    background: url('../images/emoticons/fuck_off2.png') no-repeat;
+    width: 25px;
+}
+.emote.get-lost {
+    background: url('../images/emoticons/get_lost.png') no-repeat;
+}
+.emote.get-lost2 {
+    background: url('../images/emoticons/get_lost2.png') no-repeat;
+}
+.emote.haha {
+    background: url('../images/emoticons/hahaha.png') no-repeat;
+}
+.emote.helpless {
+    background: url('../images/emoticons/helpless.png') no-repeat;
+    width: 31px;
+}
+.emote.hey {
+    background: url('../images/emoticons/hey.png') no-repeat;
+    width: 20px;
+    height: 20px;
+}
+.emote.hold-on{
+    background: url('../images/emoticons/hold_on.png') no-repeat;
+    width: 15px;
+}
+.emote.huh {
+    background: url('../images/emoticons/huh.png') no-repeat;
+}
+.emote.huh2 {
+    background: url('../images/emoticons/huh2.png') no-repeat;
+}
+.emote.idea {
+    background: url('../images/emoticons/idea.png') no-repeat;
+    width: 22px;
+    height: 20px;
+}
+.emote.injured {
+    background: url('../images/emoticons/injured.png') no-repeat;
+}
+.emote.jagged {
+    background: url('../images/emoticons/jagged.png') no-repeat;
+}
+.emote.joke {
+    background: url('../images/emoticons/joke.png') no-repeat;
+    width: 26px;
+    height: 21px;
+}
+.emote.jupi {
+    background: url('../images/emoticons/jupi.png') no-repeat;
+    width: 19px;
+    height: 19px;
+}
+.emote.lol {
+    background: url('../images/emoticons/lol.png') no-repeat;
+}
+.emote.music {
+    background: url('../images/emoticons/music.png') no-repeat;
+    width: 31px;
+    height: 18px;
+}
+.emote.none {
+    background: url('../images/emoticons/none.png') no-repeat;
+}
+.emote.none2 {
+    background: url('../images/emoticons/none2.png') no-repeat;
+}
+.emote.none3 {
+    background: url('../images/emoticons/none3.png') no-repeat;
+}
+.emote.nono {
+    background: url('../images/emoticons/nono.png') no-repeat;
+    width: 25px;
+}
+.emote.rotfl {
+    background: url('../images/emoticons/rotfl.png') no-repeat;
+}
+.emote.sad {
+    background: url('../images/emoticons/sad.png') no-repeat;
+}
+.emote.sad2 {
+    background: url('../images/emoticons/sad2.png') no-repeat;
+}
+.emote.shocked {
+    background: url('../images/emoticons/shocked.png') no-repeat;
+    width: 15px;
+}
+.emote.smile {
+    background: url('../images/emoticons/smile.png') no-repeat;
+}
+.emote.smile2 {
+    background: url('../images/emoticons/smile2.png') no-repeat;
+}
+.emote.smile3 {
+    background: url('../images/emoticons/smile3.png') no-repeat;
+}
+.emote.tongue {
+    background: url('../images/emoticons/tongue.png') no-repeat;
+}
+.emote.tongue2 {
+    background: url('../images/emoticons/tongue2.png') no-repeat;
+}
+.emote.w00t {
+    background: url('../images/emoticons/w00t.png') no-repeat;
+}
+.emote.wait {
+    background: url('../images/emoticons/w8.png') no-repeat;
+}
+.emote.well-done {
+    background: url('../images/emoticons/well_done.png') no-repeat;
+    width: 23px;
+}
+.emote.whistle {
+    background: url('../images/emoticons/whistling.png') no-repeat;
+    width: 32px;
+}
+.emote.wow {
+    background: url('../images/emoticons/wow.png') no-repeat;
+}
+.emote.yes {
+    background: url('../images/emoticons/yes.png') no-repeat;
+    width: 32px;
+}
