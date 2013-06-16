@@ -11,9 +11,10 @@ angular
             },
             connectionState: {
                 none: 1,
-                notConnected: 2,
-                inProgress: 3,
-                connected: 4
+                disconnected: 2,
+                connecting: 3,
+                connected: 4,
+                reconnecting: 5
             }
         };
 

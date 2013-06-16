@@ -17,8 +17,6 @@ namespace NGChat.Hubs
 {
     public class ChatHub : Hub
     {
-        //private static readonly ConcurrentDictionary<string, HubUser> Users = new ConcurrentDictionary<string, HubUser>();
-
         public void SendMessage(string message)
         {
             ChatUser chatUser = null;
@@ -126,11 +124,11 @@ namespace NGChat.Hubs
 
             return base.OnDisconnected();
         }
+
+        public override Task OnReconnected()
+        {
+            return base.OnReconnected();
+        }
     }
 
-    public class HubUser
-    {
-        public string Name { get; set; }
-        public List<string> ConnectionIds { get; set; }
-    }
 }

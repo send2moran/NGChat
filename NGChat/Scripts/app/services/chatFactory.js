@@ -6,7 +6,7 @@ angular
         var factory = {
             connectedUsers: [],
             messages: [],
-            connectionState: enumFactory.connectionState.notConnected
+            connectionState: enumFactory.connectionState.none
         },
 
         // hub data for managing signalr
@@ -83,6 +83,34 @@ angular
             }
         };
 
+        $.connection.hub.reconnecting(function () {
+            console.log('signalr reconnecting');
+
+            factory.connectionState = enumFactory.connectionState.reconnecting;
+
+            if (!$rootScope.$root.$$phase)
+                $rootScope.$apply();
+        });
+
+        $.connection.hub.reconnected(function () {
+            console.log('signalr reconnected');
+
+            factory.connectionState = enumFactory.connectionState.connected;
+
+            if (!$rootScope.$root.$$phase)
+                $rootScope.$apply();
+        });
+
+        $.connection.hub.disconnected(function () {
+            console.log('signalr disconnected');
+
+            if (factory.connectionState !== enumFactory.connectionState.none)
+                factory.connectionState = enumFactory.connectionState.disconnected;
+
+            if (!$rootScope.$root.$$phase)
+                $rootScope.$apply();
+        });
+
         // public
         factory.initChatMessageObject = function (user, message, date, cssClasses) {
             return {
@@ -96,7 +124,7 @@ angular
         factory.connect = function () {
             var deferred = $q.defer();
 
-            factory.connectionState = enumFactory.connectionState.inProgress;
+            factory.connectionState = enumFactory.connectionState.connecting;
 
             $.connection.hub.start()
                 .done(function () {
@@ -106,7 +134,7 @@ angular
                     deferred.resolve();
                 })
                 .fail(function () {
-                    factory.connectionState = enumFactory.connectionState.notConnected;
+                    factory.connectionState = enumFactory.connectionState.disconnected;
 
                     deferred.reject();
                 });
@@ -115,8 +143,10 @@ angular
         };
 
         factory.disconnect = function () {
+            // it is important to first set the connection as none (default state after logging in)
+            // so as not to notify "notifyChatConnection" directive
+            factory.connectionState = enumFactory.connectionState.none;
             $.connection.hub.stop();
-            factory.connectionState = enumFactory.connectionState.notConnected;
             factory.connectedUsers = [];
             factory.messages = [];
         };
@@ -130,14 +160,10 @@ angular
             return $http.get('/user/checkconnectedusers')
                 .success(function (data, status, headers, config) {
                     if (data && data.success) {
-                        if (angular.isArray(data.model)) {
-                            angular.forEach(data.model, function (value, key) {
-                                this.push({ id: value.id, name: value.name });
-                            }, factory.connectedUsers);
+                        factory.connectedUsers = angular.isArray(data.model) ? data.model : [];
 
-                            if (!$rootScope.$root.$$phase)
-                                $rootScope.$apply();
-                        }
+                        if (!$rootScope.$root.$$phase)
+                            $rootScope.$apply();
                     }
                 });
         };
