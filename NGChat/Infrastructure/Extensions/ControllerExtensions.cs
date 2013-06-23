@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using NGChat.Infrastructure.ActionResults;
+using NGChat.ViewModels.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,16 @@ namespace NGChat.Infrastructure.Extensions
                 Data = data,
                 JsonRequestBehavior = jsonBehavior
             };
+        }
+
+        public static List<AjaxError> GetErrorsForAjaxResult(this ModelStateDictionary modelState)
+        {
+            return (from ms in modelState
+                               where ms.Value.Errors.Any()
+                               select new AjaxError(
+                                   String.IsNullOrEmpty(ms.Key) ? "" : ms.Key.ToCamelCase(),
+                                   ms.Value.Errors.Select(e => e.ErrorMessage).ToList())
+                                   ).ToList();
         }
     }
 }

@@ -5,13 +5,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace NGChat.Models
+namespace NGChat.ViewModels.User
 {
-    public class ChatUser
+    public class ChatUserVM
     {
         public int Id { get; set; }
-
-        [Required(ErrorMessage = "Nazwa użytkownika nie może być pusta.")]
         public string Name { get; set; }
     }
 }

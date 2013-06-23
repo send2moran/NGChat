@@ -1,5 +1,4 @@
-﻿using NGChat.Models;
-using NGChat.DataAccess;
+﻿using NGChat.DataAccess;
 using NGChat.DataAccess.Models;
 using System;
 using System.Collections.Generic;
@@ -11,53 +10,48 @@ using System.Web.Security;
 using System.Data;
 using System.Data.Objects;
 using System.Net;
+using NGChat.ViewModels.User;
+using NGChat.ViewModels.Shared;
 
 namespace NGChat.Controllers
 {
     public class UserController : Controller
     {
-        public ActionResult Create(ChatUser model)
+        public ActionResult Login(LoginUserVM model)
         {
-            AjaxTypedResult<ChatUser> result = new AjaxTypedResult<ChatUser>();
+            AjaxTypedResult<ChatUserVM> result = new AjaxTypedResult<ChatUserVM>();
 
-            if (!User.Identity.IsAuthenticated && ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 using (var context = new ChatContext())
                 {
-                    User user = context.Users.FirstOrDefault(x => x.Name == model.Name);
-
-                    if (user == null)
+                    User newUser = new User()
                     {
-                        User newUser = new User()
-                        {
-                            Name = model.Name,
-                            LastActivity = DateTime.Now
-                        };
-                        context.Entry(newUser).State = EntityState.Added;
-                        context.SaveChanges();
+                        Name = model.Username,
+                        LastActivity = DateTime.Now
+                    };
+                    context.Entry(newUser).State = EntityState.Added;
+                    context.SaveChanges();
 
-                        result.Model = new ChatUser()
-                        {
-                            Name = newUser.Name,
-                            Id = newUser.Id
-                        };
-                        result.Success = true;
-                        result.SuccessMessage = "Użytkownik został dodany.";
-                        FormsAuthentication.SetAuthCookie(model.Name, true);
-                    }
-                    else
-                        result.Errors.Add("Wystąpił błąd. Nazwa użytkownika jest zajęta.");
+                    result.Model = new ChatUserVM()
+                    {
+                        Name = newUser.Name,
+                        Id = newUser.Id
+                    };
+
+                    result.Success = true;
+                    FormsAuthentication.SetAuthCookie(model.Username, true);
                 }
             }
             else
-                result.Errors.Add("Wystąpił błąd. Użytkownik jest już zalogowany lub nazwa jest niepoprawna.");
+                result.Errors = ModelState.GetErrorsForAjaxResult();
 
             return this.JsonCamelCase(result);
         }
 
         public ActionResult FindPreviousSession()
         {
-            AjaxTypedResult<ChatUser> result = new AjaxTypedResult<ChatUser>();
+            AjaxTypedResult<ChatUserVM> result = new AjaxTypedResult<ChatUserVM>();
 
             if (User.Identity.IsAuthenticated)
             {
@@ -67,7 +61,7 @@ namespace NGChat.Controllers
 
                     if (user != null)
                     {
-                        result.Model = new ChatUser()
+                        result.Model = new ChatUserVM()
                         {
                             Name = user.Name,
                             Id = user.Id
@@ -84,7 +78,7 @@ namespace NGChat.Controllers
             return this.JsonCamelCase(result, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult Delete()
+        public ActionResult Logout()
         {
             AjaxResult result = new AjaxResult();
 
@@ -110,20 +104,20 @@ namespace NGChat.Controllers
 
         public ActionResult CheckConnectedUsers()
         {
-            AjaxTypedResult<List<ChatUser>> result = new AjaxTypedResult<List<ChatUser>>();
+            AjaxTypedResult<List<ChatUserVM>> result = new AjaxTypedResult<List<ChatUserVM>>();
 
             if (User.Identity.IsAuthenticated)
             {
                 using (var chatContext = new ChatContext())
                 {
-                    List<ChatUser> chatUsers = new List<ChatUser>();
+                    List<ChatUserVM> chatUsers = new List<ChatUserVM>();
                     var users = chatContext.Users.Where(x => 
                         x.LastActivity >= EntityFunctions.AddMinutes(DateTime.Now, -30) &&
                         x.HubConnections.Count > 0);
 
                     foreach (var user in users)
                     {
-                        chatUsers.Add(new ChatUser()
+                        chatUsers.Add(new ChatUserVM()
                         {
                             Id = user.Id,
                             Name = user.Name
@@ -140,7 +134,7 @@ namespace NGChat.Controllers
 
         public ActionResult CheckIfLogged()
         {
-            AjaxTypedResult<ChatUser> result = new AjaxTypedResult<ChatUser>();
+            AjaxTypedResult<ChatUserVM> result = new AjaxTypedResult<ChatUserVM>();
 
             if (User.Identity.IsAuthenticated)
             {
@@ -150,7 +144,7 @@ namespace NGChat.Controllers
 
                     if (user != null)
                     {
-                        result.Model = new ChatUser()
+                        result.Model = new ChatUserVM()
                         {
                             Name = user.Name,
                             Id = user.Id

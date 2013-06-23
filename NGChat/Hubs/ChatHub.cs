@@ -2,7 +2,7 @@
 using NGChat.DataAccess;
 using NGChat.DataAccess.Models;
 using NGChat.Infrastructure.Utils;
-using NGChat.Models;
+using NGChat.ViewModels.User;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -19,7 +19,7 @@ namespace NGChat.Hubs
     {
         public void SendMessage(string message)
         {
-            ChatUser chatUser = null;
+            ChatUserVM chatUser = null;
 
             if (Context.User != null && Context.User.Identity.IsAuthenticated)
             {
@@ -33,7 +33,7 @@ namespace NGChat.Hubs
                         chatContext.Entry(user).State = EntityState.Modified;
                         chatContext.SaveChanges();
 
-                        chatUser = new ChatUser()
+                        chatUser = new ChatUserVM()
                         {
                             Id = user.Id,
                             Name = user.Name
@@ -76,7 +76,7 @@ namespace NGChat.Hubs
                         chatContext.Entry(user).State = EntityState.Modified;
                         chatContext.SaveChanges();
 
-                        ChatUser chatUser = new ChatUser()
+                        ChatUserVM chatUser = new ChatUserVM()
                         {
                             Id = user.Id,
                             Name = WebUtility.HtmlEncode(user.Name)
@@ -110,7 +110,7 @@ namespace NGChat.Hubs
                         chatContext.Entry(user).State = EntityState.Modified;
                         chatContext.SaveChanges();
 
-                        ChatUser chatUser = new ChatUser()
+                        ChatUserVM chatUser = new ChatUserVM()
                         {
                             Id = user.Id,
                             Name = WebUtility.HtmlEncode(user.Name)

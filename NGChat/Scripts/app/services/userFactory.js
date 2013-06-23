@@ -15,22 +15,18 @@ angular
             };
         };
         
-        factory.login = function (name) {
-            return $http.post('/user/create', { name: name })
+        factory.login = function (username) {
+            return $http.post('/user/login', { username: username })
                 .success(function (data, status, headers, config) {
                     if (data && data.success) {
                         factory.user = factory.initUserObject(data.model.id, data.model.name);
                         factory.authState = enumFactory.authState.authenticated;
-                    } else
-                        alert(data.errors.length > 0 ? data.errors[0] : 'Wystąpił błąd. Proszę spróbować później.');
-                })
-                .error(function (data, status, headers, config) {
-                    alert('Wystąpił błąd. Proszę spróbować później.');
+                    }
                 });
         };
 
         factory.logout = function () {
-            return $http.get('/user/delete')
+            return $http.get('/user/logout')
                 .success(function (data) {
                     if (data && data.success) {
                         factory.user = null;
