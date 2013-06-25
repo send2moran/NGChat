@@ -51,8 +51,8 @@ namespace NGChat.Hubs
             urlsParser.Target = "_blank";
             message = urlsParser.ExpandUrls(message);
 
-            EmoticonParser emoticonParser = new EmoticonParser();
-            message = emoticonParser.Parse(message);
+            //EmoticonParser emoticonParser = new EmoticonParser();
+            //message = emoticonParser.Parse(message);
 
             if (chatUser != null)
                 Clients.All.appendMessage(chatUser, message);
