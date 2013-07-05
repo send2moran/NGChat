@@ -11,8 +11,6 @@ angular
         $scope.loginBtnText = LOGIN_BTN_IDLE_TEXT;
         $scope.errors = [];
 
-        $scope.test1 = [1, 2, 3, 4, 5];
-
         $scope.$watch(
             'loginInProgress',
             function (newValue, oldValue) {

@@ -3,15 +3,17 @@
 }
 
 <div class="logIn">
-    <form name="loginForm" class="form-signin" data-ng-submit="login()" data-server-validation="errors">
+    <form name="loginForm" class="form-signin" data-ng-submit="login()">
+        <div data-custom-validation="errors"></div>
+
         <h2 class="form-signin-heading">Wybierz swój nick</h2>
 
-        <div class="control-group" data-ng-class="{ error: (loginForm.username.$dirty && loginForm.username.$invalid) || loginForm.$serverInvalid }">
+        <div class="control-group" data-ng-class="{ error: loginForm.username._hasAnyError }">
             <input type="text" name="username" class="input-block-level" placeholder="Wpisz nick" data-ng-model="username" required>
 
-            <div data-errors="" data-ng-show="(loginForm.username.$dirty && loginForm.username.$invalid) || loginForm.$serverInvalid">
-                <span class="help-block" data-ng-show="loginForm.username.$error.required">Pole jest wymagane.</span>
-                <span class="help-block" data-ng-repeat="error in loginForm.$serverErrors.username">{{ error }}</span>
+            <div data-field-errors="username" 
+                data-server-errors="errors" 
+                data-client-errors="{ required: 'Pole jest wymagane.' }">
             </div>
         </div>
         
