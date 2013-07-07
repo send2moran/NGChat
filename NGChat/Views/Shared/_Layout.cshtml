@@ -19,7 +19,10 @@
                 <div class="container-fluid">
                     <div class="brand">Simple chat</div>
                     <div class="btn-group pull-right" data-ng-show="rightDropdown.show">
-                        <button class="btn"><i class="icon-user"></i>{{ rightDropdown.username }}</button>
+                        <button class="btn">
+                            <i class="icon-user"></i>
+                            <span data-ng-bind-html-unsafe="rightDropdown.username"></span>
+                        </button>
                         <button class="btn dropdown-toggle">
                             <span class="caret"></span>
                         </button>

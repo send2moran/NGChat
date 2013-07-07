@@ -10,7 +10,7 @@
             <div data-pane="" data-heading="Główny">
                 <ul class="well chatWindow" data-scroll-on-refresh="chat.messages">
                     <li data-ng-repeat="message in chat.messages" data-ng-class="message.cssClasses">
-                        <div class="userName" >{{ message.user.name }} -</div>
+                        <div class="userName" data-ng-bind-html-unsafe="message.user.name + ' -'"></div>
                         <div class="date">{{ message.date | date:'d MMM HH:mm' }}</div>
                         <div class="message" data-show-message="message.message"></div>
                     </li>
@@ -32,7 +32,10 @@
     <div class="span4">
         <h4>Użytkownicy</h4>
         <ul class="users unstyled">
-            <li data-ng-repeat="user in chat.connectedUsers"><i class="icon-user"></i>{{ user.name }}</li>
+            <li data-ng-repeat="user in chat.connectedUsers">
+                <i class="icon-user"></i>
+                <span data-ng-bind-html-unsafe="user.name"></span>
+            </li>
         </ul>
     </div>
 </div>

@@ -36,7 +36,7 @@ namespace NGChat.Hubs
                         chatUser = new ChatUserVM()
                         {
                             Id = user.Id,
-                            Name = user.Name
+                            Name = WebUtility.HtmlEncode(user.Name)
                         };
                     }
                 }

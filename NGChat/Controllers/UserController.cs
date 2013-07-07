@@ -35,7 +35,7 @@ namespace NGChat.Controllers
 
                     result.Model = new ChatUserVM()
                     {
-                        Name = newUser.Name,
+                        Name = WebUtility.HtmlEncode(newUser.Name),
                         Id = newUser.Id
                     };
 
@@ -63,7 +63,7 @@ namespace NGChat.Controllers
                     {
                         result.Model = new ChatUserVM()
                         {
-                            Name = user.Name,
+                            Name = WebUtility.HtmlEncode(user.Name),
                             Id = user.Id
                         };
                         result.Success = true;
@@ -120,7 +120,7 @@ namespace NGChat.Controllers
                         chatUsers.Add(new ChatUserVM()
                         {
                             Id = user.Id,
-                            Name = user.Name
+                            Name = WebUtility.HtmlEncode(user.Name)
                         });
                     }
 
@@ -146,7 +146,7 @@ namespace NGChat.Controllers
                     {
                         result.Model = new ChatUserVM()
                         {
-                            Name = user.Name,
+                            Name = WebUtility.HtmlEncode(user.Name),
                             Id = user.Id
                         };
                         result.Success = true;
