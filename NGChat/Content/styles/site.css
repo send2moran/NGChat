@@ -59,6 +59,17 @@
             padding: 3px 0;
         }
 
+        .chatWindow li .message,
+        .chatWindow li .message .shorter {
+            -ms-word-wrap: break-word;
+            word-wrap: break-word;
+            overflow: hidden;
+        }
+
+        .chatWindow li .message .toggleMessage {
+            padding: 0;
+        }
+
         .chatWindow li.global {
             -webkit-box-shadow: inset 40px 0px 40px -40px #ed8c05;
             box-shadow: inset 40px 0px 40px -40px #ed8c05;

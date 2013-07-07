@@ -427,6 +427,7 @@
     <Content Include="Scripts\app\controllers\LogInController.js" />
     <Content Include="Scripts\app\controllers\NavController.js" />
     <Content Include="Scripts\app\directives\chatNotifications.js" />
+    <Content Include="Scripts\app\directives\showMessage.js" />
     <Content Include="Scripts\app\directives\customValidation.js" />
     <Content Include="Scripts\app\directives\fieldErrors.js" />
     <Content Include="Scripts\app\directives\notifyChatConnection.js" />

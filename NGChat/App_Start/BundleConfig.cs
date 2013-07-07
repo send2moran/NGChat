@@ -27,6 +27,7 @@ namespace NGChat
                 "~/Scripts/app/directives/submitTextarea.js",
                 "~/Scripts/app/directives/fieldErrors.js",
                 "~/Scripts/app/directives/customValidation.js",
+                "~/Scripts/app/directives/showMessage.js",
                 "~/Scripts/app/services/enumFactory.js",
                 "~/Scripts/app/services/userFactory.js",
                 "~/Scripts/app/services/chatFactory.js",

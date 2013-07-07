@@ -12,7 +12,7 @@
                     <li data-ng-repeat="message in chat.messages" data-ng-class="message.cssClasses">
                         <div class="userName" >{{ message.user.name }} -</div>
                         <div class="date">{{ message.date | date:'d MMM HH:mm' }}</div>
-                        <div class="message" data-ng-bind-html="message.message"></div>
+                        <div class="message" data-show-message="message.message"></div>
                     </li>
                 </ul>
             </div>
