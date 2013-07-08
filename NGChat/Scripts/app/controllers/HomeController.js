@@ -41,4 +41,8 @@ angular
                 $scope.chat.newMessage = '';
             }
         }
+
+        $scope.clearMessages = function () {
+            $scope.chat.messages = [];
+        };
     }]);

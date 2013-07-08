@@ -97,11 +97,14 @@
             }
 
 .sendMessageForm {
-    margin: 20px 0 0 0;
+    margin: 0;
     padding: 0;
     display: block;
-    overflow: hidden;
 }
+    
+    .sendMessageForm .chatOptions {
+        margin: 5px 0;
+    }
 
     .sendMessageForm textarea {
         width: 572px;
@@ -109,7 +112,7 @@
         resize: vertical;
     }
 
-    .sendMessageForm button {
+    .sendMessageForm .submitButton {
         margin-left: 10px;
     }
 

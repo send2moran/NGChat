@@ -435,6 +435,7 @@
     <Content Include="Scripts\app\directives\submitTextarea.js" />
     <Content Include="Scripts\app\modules\chatModule.js" />
     <Content Include="Scripts\app\services\chatFactory.js" />
+    <Content Include="Scripts\app\services\chatOptionsFactory.js" />
     <Content Include="Scripts\app\services\enumFactory.js" />
     <Content Include="Scripts\app\services\userFactory.js" />
     <Content Include="Scripts\libs\desktop-notify\desktop-notify.js" />

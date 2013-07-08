@@ -16,23 +16,36 @@ angular
                           '<source src="/Content/sounds/connect-disconnect.mp3" type="audio/mp3">' +
                           '<source src="/Content/sounds/connect-disconnect.wav" type="audio/wave">' +
                       '</audio>',
+            scope: {
+                messages: '=chatNotifications',
+                connectedUsers: '=connectedUsers',
+                soundEnabled: '=notifySoundEnabled',
+                desktopEnabled: '=notifyDesktopEnabled'
+            },
             link: function (scope, element, attrs) {
                 function isWindowActive() {
                     return $window.document.hasFocus();
                 };
 
                 function canShowNotify() {
-                    return notify.isSupported && notify.permissionLevel() == notify.PERMISSION_GRANTED;
+                    return notify.isSupported && notify.permissionLevel() == notify.PERMISSION_GRANTED &&
+                        (scope.desktopEnabled === undefined || scope.desktopEnabled === true);
                 }
 
-                scope.$watch(attrs.chatNotifications, function (newValue, oldValue) {
+                function canPlaySound() {
+                    return scope.soundEnabled === undefined || scope.soundEnabled === true;
+                }
+
+                scope.$watch('messages', function (newValue, oldValue) {
                     var lastMessage = newValue[newValue.length - 1];
 
                     if (!isWindowActive() &&
                         lastMessage &&
                         lastMessage.cssClasses != 'global' &&
                         lastMessage.user.id != userFactory.user.id) {
-                        element.find('#newMessageSound')[0].play();
+
+                        if (canPlaySound())
+                            element.find('#newMessageSound')[0].play();
 
                         if (canShowNotify()) {
                             var message = lastMessage.message;
@@ -54,8 +67,8 @@ angular
                     }
                 }, true);
 
-                scope.$watch(attrs.connectedUsers, function (newValue, oldValue) {
-                    if (!isWindowActive())
+                scope.$watch('connectedUsers', function (newValue, oldValue) {
+                    if (!isWindowActive() && canPlaySound())
                         element.find('#connectDisconnectSound')[0].play();
                 }, true);
 

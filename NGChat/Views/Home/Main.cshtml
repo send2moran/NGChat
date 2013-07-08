@@ -4,27 +4,60 @@
 
 <div class="main">
     <div class="span8">
-        <div data-chat-notifications="chat.messages" data-connected-users="chat.connectedUsers"></div>
+        <div data-chat-notifications="chat.messages" 
+            data-connected-users="chat.connectedUsers" 
+            data-notify-sound-enabled="chat.options.soundNotificationEnabled"
+            data-notify-desktop-enabled="chat.options.desktopNotificationEnabled"></div>
         <div data-notify-chat-connection="chat.connectionState"></div>
+
         <div data-tabs="">
             <div data-pane="" data-heading="Główny">
-                <ul class="well chatWindow" data-scroll-on-refresh="chat.messages">
-                    <li data-ng-repeat="message in chat.messages" data-ng-class="message.cssClasses">
+                <ul class="well chatWindow" 
+                    data-scroll-on-refresh="chat.messages" 
+                    data-scroll-on-refresh-enabled="chat.options.messagesTracking">
+
+                    @* here is "message in messages" instead of "message in chat.messages", becouse *@
+                    @* previous element (chatWindow) has directive which creates isolated scope *@
+                    @* and inner elements are sharing that scope *@
+                    <li data-ng-repeat="message in messages" data-ng-class="message.cssClasses">
                         <div class="userName" data-ng-bind-html-unsafe="message.user.name + ' -'"></div>
                         <div class="date">{{ message.date | date:'d MMM HH:mm' }}</div>
-                        <div class="message" data-show-message="message.message"></div>
+                        <div class="message" 
+                            data-show-message="message.message" 
+                            data-allow-message-shortening="chat.options.shorteningTooLongMessages"></div>
                     </li>
                 </ul>
             </div>
         </div>
+
         <div class="row-fluid">
             <form class="sendMessageForm">
+                <div class="chatOptions">
+                    <div class="btn-group">
+                        <button type="button" class="btn" data-ng-click="clearMessages()" data-tooltip="wyczyść wiadomości" data-tooltip-popup-delay="1000">
+                            <i class="icon-trash"></i>
+                        </button>
+                        <button type="button" class="btn" data-ng-model="chat.options.smileysEnabled" data-btn-checkbox="" data-tooltip="włącz/wyłącz emotikony" data-tooltip-popup-delay="1000" disabled>
+                            <i class="icon-user"></i>
+                        </button>
+                        <button type="button" class="btn" data-ng-model="chat.options.messagesTracking" data-btn-checkbox="" data-tooltip="włącz/wyłącz automatyczne przewijanie" data-tooltip-popup-delay="1000">
+                            <i class="icon-chevron-down"></i>
+                        </button>
+                        <button type="button" class="btn" data-ng-model="chat.options.soundNotificationEnabled" data-btn-checkbox="" data-tooltip="włącz/wyłącz powiadomienia głosowe" data-tooltip-popup-delay="1000">
+                            <i class="icon-music"></i>
+                        </button>
+                        <button type="button" class="btn" data-ng-model="chat.options.desktopNotificationEnabled" data-btn-checkbox="" data-tooltip="włącz/wyłącz powiadomienia na pulpicie" data-tooltip-popup-delay="1000">
+                            <i class="icon-envelope"></i>
+                        </button>
+                    </div>
+                </div>
+
                 <textarea 
                     data-ng-model="chat.newMessage" 
                     data-submit-textarea="sendMessage()" 
                     class="pull-left" 
                     placeholder="Napisz wiadomość" ></textarea>
-                <button type="button" class="btn btn-inverse pull-left" data-ng-click="sendMessage()">Wyślij</button>
+                <button type="button" class="btn btn-inverse pull-left submitButton" data-ng-click="sendMessage()">Wyślij</button>
             </form>
         </div>
     </div>

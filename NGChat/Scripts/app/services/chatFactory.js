@@ -2,11 +2,12 @@
 
 angular
     .module('chat.services')
-    .factory('chatFactory', ['$rootScope', '$http', '$q', '$timeout', 'enumFactory', 'userFactory', function ($rootScope, $http, $q, $timeout, enumFactory, userFactory) {
+    .factory('chatFactory', ['$rootScope', '$http', '$q', '$timeout', 'enumFactory', 'userFactory', 'chatOptionsFactory', function ($rootScope, $http, $q, $timeout, enumFactory, userFactory, chatOptionsFactory) {
         var factory = {
             connectedUsers: [],
             messages: [],
-            connectionState: enumFactory.connectionState.none
+            connectionState: enumFactory.connectionState.none,
+            options: chatOptionsFactory
         },
 
         // hub data for managing signalr

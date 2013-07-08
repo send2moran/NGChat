@@ -31,6 +31,7 @@ namespace NGChat
                 "~/Scripts/app/services/enumFactory.js",
                 "~/Scripts/app/services/userFactory.js",
                 "~/Scripts/app/services/chatFactory.js",
+                "~/Scripts/app/services/chatOptionsFactory.js",
                 "~/Scripts/app/controllers/HomeController.js",
                 "~/Scripts/app/controllers/LogInController.js",
                 "~/Scripts/app/controllers/NavController.js",
