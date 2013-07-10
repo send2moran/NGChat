@@ -770,8 +770,6 @@
     <Content Include="Scripts\libs\ms\jquery.validate.min.js" />
     <Content Include="Scripts\libs\ms\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\libs\ms\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\libs\knockout\knockout-2.2.0.debug.js" />
-    <Content Include="Scripts\libs\knockout\knockout-2.2.0.js" />
     <Content Include="Scripts\libs\modernizr\modernizr-2.6.2.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
