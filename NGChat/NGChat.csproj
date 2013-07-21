@@ -423,10 +423,12 @@
     <Content Include="Scripts\app\app.js" />
     <Content Include="Scripts\app\components\ui-bootstrap\ui-bootstrap-tpls-0.3.0.js" />
     <Content Include="Scripts\app\components\ui-bootstrap\ui-bootstrap-tpls-0.3.0.min.js" />
+    <Content Include="Scripts\app\controllers\CopyMessageDialogController.js" />
     <Content Include="Scripts\app\controllers\HomeController.js" />
     <Content Include="Scripts\app\controllers\LogInController.js" />
     <Content Include="Scripts\app\controllers\NavController.js" />
     <Content Include="Scripts\app\directives\chatNotifications.js" />
+    <Content Include="Scripts\app\directives\selectText.js" />
     <Content Include="Scripts\app\directives\showMessage.js" />
     <Content Include="Scripts\app\directives\customValidation.js" />
     <Content Include="Scripts\app\directives\fieldErrors.js" />
@@ -785,6 +787,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Main.cshtml" />
     <Content Include="Views\Home\LogIn.cshtml" />
+    <Content Include="Views\Home\CopyMessageDialog.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

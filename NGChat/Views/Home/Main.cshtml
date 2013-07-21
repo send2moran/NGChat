@@ -19,9 +19,17 @@
                     @* here is "message in messages" instead of "message in chat.messages", becouse *@
                     @* previous element (chatWindow) has directive which creates isolated scope *@
                     @* and inner elements are sharing that scope *@
-                    <li data-ng-repeat="message in messages" data-ng-class="message.cssClasses">
+                    <li data-ng-repeat="message in messages" data-ng-class="message.cssClasses" class="message">
                         <div class="userName" data-ng-bind-html-unsafe="message.user.name + ' -'"></div>
                         <div class="date">{{ message.date | date:'d MMM HH:mm' }}</div>
+                        <div class="options pull-left">
+                            <button class="btn dropdown-toggle">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="javascript:void(0)" data-ng-click="$parent.$parent.openCopyMessageDialog(message)">kopiuj</a></li>
+                            </ul>
+                        </div>
                         <div class="message" 
                             data-show-message="message.message" 
                             data-allow-message-shortening="chat.options.shorteningTooLongMessages"></div>

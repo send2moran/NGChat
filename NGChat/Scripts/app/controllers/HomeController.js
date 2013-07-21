@@ -2,7 +2,7 @@
 
 angular
     .module('chat.controllers')
-    .controller('HomeController', ['$rootScope', '$scope', '$timeout', 'userFactory', 'chatFactory', 'enumFactory', function ($rootScope, $scope, $timeout, userFactory, chatFactory, enumFactory) {
+    .controller('HomeController', ['$rootScope', '$scope', '$timeout', 'userFactory', 'chatFactory', 'enumFactory', '$dialog', function ($rootScope, $scope, $timeout, userFactory, chatFactory, enumFactory, $dialog) {
         var reconnectionDefaultTimeout = 3750,
             reconnectionMaxTimeout = 60000,
             reconnectionTimeout = reconnectionDefaultTimeout;
@@ -44,5 +44,24 @@ angular
 
         $scope.clearMessages = function () {
             $scope.chat.messages = [];
+        };
+
+        $scope.openCopyMessageDialog = function (message) {
+            var dialog = null,
+                options = {
+                    backdrop: false,
+                    keyboard: true,
+                    backdropClick: false,
+                    templateUrl: '/Home/CopyMessageDialog',
+                    controller: 'CopyMessageDialogController',
+                    resolve: {
+                        message: function () {
+                            return angular.copy(message);
+                        }
+                    }
+                };
+
+            dialog = $dialog.dialog(options);
+            dialog.open();
         };
     }]);

@@ -17,60 +17,91 @@
     height: 317px;
     overflow-x: hidden;
     overflow-y: auto;
-    padding-left: 0;
+    padding: 5px 19px 5px 0;
 }
 
-    .chatWindow li {
+    .chatWindow > li {
         display: block;
         list-style: none;
-        overflow: hidden;
         color: #555555;
         padding: 5px 0 5px 19px;
         border-bottom: 1px solid #eaeaea;
         margin-bottom: 6px;
     }
 
-        .chatWindow li.author {
+        .chatWindow > li.author {
             -webkit-box-shadow: inset 40px 0px 40px -40px #0088cc;
             box-shadow: inset 40px 0px 40px -40px #0088cc;
             border-bottom: 1px solid #93c8e7;
         }
 
-        .chatWindow li .date,
-        .chatWindow li .userName {
+        .chatWindow > li .date,
+        .chatWindow > li .userName {
             float: left;
             line-height: 14px;
             font-size: 11px;
         }
 
-        .chatWindow li .date {
-        }
-
-        .chatWindow li .userName {
+        .chatWindow > li .userName {
             font-weight: bold;
             padding-right: 3px;
             color: #000;
         }
 
-        .chatWindow li .message {
+        .chatWindow > li:hover .options {
+            opacity: 1;
+        }
+
+        .chatWindow > li .options {
+            margin-left: 10px;
+            position: relative;
+            opacity: 0;
+            -webkit-transition: all 0.3s ease-in-out;
+            -moz-transition: all 0.3s ease-in-out;
+            -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .chatWindow > li .options .btn {
+            padding: 0 3px;
+            line-height: 12px;
+            margin: 0;
+            float: left;
+        }
+
+        .chatWindow > li .options .btn .caret {
+            margin-top: 4px;
+        }
+
+        .chatWindow > li .options .dropdown-menu {
+            min-width: 70px;
+        }
+
+        .chatWindow > li .options .dropdown-menu a {
+            padding: 3px 10px;
+            line-height: 12px;
+            font-size: 12px;
+        }
+
+        .chatWindow > li .message {
             clear: left;
             line-height: 16px;
             font-size: 13px;
             padding: 3px 0;
         }
 
-        .chatWindow li .message,
-        .chatWindow li .message .shorter {
+        .chatWindow > li .message,
+        .chatWindow > li .message .shorter {
             -ms-word-wrap: break-word;
             word-wrap: break-word;
             overflow: hidden;
         }
 
-        .chatWindow li .message .toggleMessage {
+        .chatWindow > li .message .toggleMessage {
             padding: 0;
         }
 
-        .chatWindow li.global {
+        .chatWindow > li.global {
             -webkit-box-shadow: inset 40px 0px 40px -40px #ed8c05;
             box-shadow: inset 40px 0px 40px -40px #ed8c05;
             border-bottom: 1px solid #ed8c05;
@@ -78,15 +109,15 @@
             color: #ed8c05;
         }
 
-            .chatWindow li.global .date {
+            .chatWindow > li.global .date {
                 line-height: 16px;
             }
 
-            .chatWindow li.global .userName {
+            .chatWindow > li.global .userName {
                 display: none;
             }
 
-            .chatWindow li.global .message {
+            .chatWindow > li.global .message {
                 clear: none;
                 float: left;
                 font-size: 11px;
@@ -190,6 +221,11 @@
 }
 .users li .icon-user {
     padding-right: 5px;
+}
+
+.copyMessageDialog textarea {
+    width: 97%;
+    min-height: 50px;
 }
 
 /* Emoticons */

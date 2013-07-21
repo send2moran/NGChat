@@ -28,6 +28,7 @@ namespace NGChat
                 "~/Scripts/app/directives/fieldErrors.js",
                 "~/Scripts/app/directives/customValidation.js",
                 "~/Scripts/app/directives/showMessage.js",
+                "~/Scripts/app/directives/selectText.js",
                 "~/Scripts/app/services/enumFactory.js",
                 "~/Scripts/app/services/userFactory.js",
                 "~/Scripts/app/services/chatFactory.js",
@@ -35,6 +36,7 @@ namespace NGChat
                 "~/Scripts/app/controllers/HomeController.js",
                 "~/Scripts/app/controllers/LogInController.js",
                 "~/Scripts/app/controllers/NavController.js",
+                "~/Scripts/app/controllers/CopyMessageDialogController.js",
                 "~/Scripts/app/modules/chatModule.js"
 
                 );

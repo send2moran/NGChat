@@ -71,5 +71,10 @@ namespace NGChat.Controllers
 
             return new EmptyResult();
         }
+
+        public ActionResult CopyMessageDialog()
+        {
+            return View();
+        }
     }
 }

@@ -1,0 +1,15 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="copyMessageDialog">
+    <div class="modal-header">
+        <h4>Kopiowanie wiadomości (wciśnij ctrl + c)</h4>
+    </div>
+    <div class="modal-body">
+        <textarea data-ng-bind="message.message" data-select-text="" disabled></textarea>
+    </div>
+    <div class="modal-footer">
+        <button data-ng-click="close()" class="btn btn-primary">Zamknij</button>
+    </div>
+</div>
