@@ -64,4 +64,8 @@ angular
             dialog = $dialog.dialog(options);
             dialog.open();
         };
+
+        $scope.quoteMessage = function (message) {
+            $scope.chat.newMessage = message.user.name + ' napisał:\n"' + message.message + '"';
+        };
     }]);
